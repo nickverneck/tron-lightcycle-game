@@ -1,21 +1,21 @@
 // pages/api/socket.ts
 
-import { NextApiRequest } from 'next';
-import { NextApiResponseServerIO } from '../../types/next';
-import { Server } from 'socket.io';
-import { Server as NetServer } from 'http';
+import type { NextApiRequest } from 'next';
+import type { NextApiResponseServerIO } from '../../types/NextApiResponseServerIO';
+import { Server as IOServer } from 'socket.io';
+import { Server as HTTPServer } from 'http';
 import { Socket } from 'socket.io';
-import logger from '../../utils/logger';
-import { GameState } from '../../game/GameState';
-import { Player } from '../../classes/Player';
-import { AIPlayer } from '../../classes/AIPlayer';
+import logger from '../../app/utils/logger';
+import { GameState } from '../../app/game/GameState';
+import { Player } from '../../app/classes/Player';
+import { AIPlayer } from '../../app/classes/AIPlayer';
 
 export default function handler(req: NextApiRequest, res: NextApiResponseServerIO) {
   if (!res.socket.server.io) {
     logger.info('Initializing Socket.IO server...');
-    const httpServer: NetServer = res.socket.server as any;
-    const io = new Server(httpServer, {
-      path: '/api/socketio',
+    const httpServer: HTTPServer = res.socket.server as any;
+    const io = new IOServer(httpServer, {
+      path: '/api/socket',
     });
     res.socket.server.io = io;
 

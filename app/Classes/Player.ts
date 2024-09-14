@@ -1,4 +1,4 @@
-import { Vector3 } from '../types/Player';
+import { Vector3 } from '../../types/Player';
 
 export class Player {
   id: string;

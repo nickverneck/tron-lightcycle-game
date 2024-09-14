@@ -1,13 +1,21 @@
-import { useEffect } from 'react';
-import type { AppProps } from 'next/app';
+'use client';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    // Initialize Socket.IO server
-    fetch('/api/socket');
-  }, []);
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import NameInput from './components/NameInput';
 
-  return <Component {...pageProps} />;
+const Game = dynamic(() => import('./components/Game'), { ssr: false });
+
+export default function HomePage() {
+  const [name, setName] = useState<string | null>(null);
+
+  return (
+    <div>
+      {name ? (
+        <Game playerName={name} />
+      ) : (
+        <NameInput onNameSubmit={setName} />
+      )}
+    </div>
+  );
 }
-
-export default MyApp;

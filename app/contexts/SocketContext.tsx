@@ -1,4 +1,4 @@
-// contexts/SocketContext.tsx
+'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
@@ -16,7 +16,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   useEffect(() => {
     const socketIo = io({
-      path: '/api/socketio',
+      path: '/api/socket',
     });
 
     setSocket(socketIo);
